@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="jp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- フォント -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=M+PLUS+Rounded+1c&family=Sansita:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <!-- ページタイトル -->
+    <title>ABOUT - Portfolio</title>
+    <meta name="description" content="佐藤 来海のポートフォリオ">
+    <link rel="icon" href="img/favicon.webp">
+    <link href="css/slick.css" rel="stylesheet">
+    <link href="css/slick-theme.css" rel="stylesheet">
+    <link href="css/aos.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <header>
+        <!-- ↓↓↓h1とナビの箱↓↓↓ -->
+        <div id="header-unit">
+            <!-- ↓左上の名前↓ -->
+            <a href="index.html">
+                <h1>KURUMI<br>SATO</h1>
+            </a>
+            <!-- <nav id="nav-menu">
+                <ul class="main-nav">
+                    <li><a href="#works">WORKS</a></li>
+                    <li><a href="about.html">ABOUT</a></li>
+                    <li><a href="#contact">CONTACT</a></li>
+                </ul>
+            </nav> -->
+        </div>
+    </header>
+
+    <main>
+        <article>
+            <div id="hamburger-kun-card">
+                <h1>ハンバーガーの妖精</h1>
+                <div id="hamburger-kun-box">
+                    <div id="text-unit">
+                        <dl>
+                            <div id="bd-unit">
+                                <dt>BD</dt>
+                                <dd>2026-06-13</dd>
+                            </div>
+                            <div id="born-unit">
+                                <dt>BORN</dt>
+                                <dd>ポートフォリオの中</dd>
+                            </div>
+                            <div id="guzai-unit">
+                                <dt>GUZAI</dt>
+                                <div id="guzai-list-unit">
+                                    <dd>バンズ（セサミ）</dd>
+                                    <dd>フリルレタス</dd>
+                                    <dd>チェダーチーズ</dd>
+                                    <dd>トマト</dd>
+                                    <dd>ビーフ100%パティ</dd>
+                                </div>
+                            </div>
+                        </dl>
+                    </div>
+                    <figure></figure>
+                </div>
+        </article>
+    </main>
+
+    <footer id="contact">
+        <p>CONTACT</p>
+        <!-- ↓メアド↓ -->
+        <address>ssssssatoooooo@gmail.com</address>
+        <p><small>&copy; SATO KURUMI</small></p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- slick.jsプラグイン -->
+    <script src="js/slick.min.js"></script>
+    <!-- イニシャライズ -->
+    <script>
+        $('.slider').slick({
+            autoplay: true,
+            infinity: true,
+            dots: true,
+            speed: 1000,
+            autoplaySpeed: 1200,
+            centerMode: true,
+            centerPadding: '20%'
+        });
+    </script>
+    <!--AOAイニシャライズ-->
+    <script src="js/aos.js"></script>
+    <script>AOS.init();</script>
+    <script>
+        // ローディング画面
+        window.addEventListener('load', function () {
+            const loader = document.getElementById('loader');
+
+            setTimeout(function () {
+                loader.style.transition = 'opacity 0.6s ease';
+                loader.style.opacity = '0';
+
+
+                setTimeout(function () {
+                    loader.style.display = 'none';
+                }, 600);
+
+            }, 1500);
+        });
+
+        // ハンバーガーメニュー
+        const btn = document.getElementById('hamburger-btn');
+        const menu = document.getElementById('nav-menu');
+        const links = document.querySelectorAll('#nav-menu a');
+
+        btn.addEventListener('click', () => {
+            btn.classList.toggle('active');
+            menu.classList.toggle('active');
+        });
+
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                btn.classList.remove('active');
+                menu.classList.remove('remove');
+            });
+        });
+    </script>
+
+</body>
+
+</html>

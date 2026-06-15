@@ -1,0 +1,1471 @@
+@charset "utf-8";
+
+/*------------------
+ 初期設定 
+ ------------------*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+li {
+    list-style: none;
+}
+
+img {
+    width: 100%;
+    vertical-align: bottom;
+}
+
+/*------------------
+ローディング画面
+------------------*/
+
+/* 1. ローディング背景設定 */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffbf1e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* ハンバーガー全体枠 */
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    /* 具と具のすき間 */
+}
+
+/* パーツ共通スタイル */
+.part {
+    width: 80px;
+    border: solid 2px #333;
+    border-radius: 10px;
+    animation: dropIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    opacity: 0;
+}
+
+.bun-top {
+    height: 25px;
+    background-color: #de9400;
+    border-radius: 40px 40px 5px 5px;
+    animation-delay: 0.1s;
+}
+
+.tomato {
+    height: 10px;
+    background-color: #e64c3c;
+    width: 75px;
+    animation-delay: 0.3s;
+}
+
+.meat {
+    height: 15px;
+    background-color: #8c583d;
+    animation-delay: 0.5s;
+}
+
+.letus {
+    height: 8px;
+    background-color: #62b50e;
+    animation-delay: 0.7s;
+}
+
+.bun-bottom {
+    height: 15px;
+    background-color: #de9400;
+    border-radius: 5px 5px 15px 15px;
+    animation-delay: 0.9s;
+}
+
+/* アニメーション */
+@keyframes dropIn {
+    0% {
+        transform: translateY(-150px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1
+    }
+}
+
+
+body {
+    font-family: "M PLUS Rounded 1c", "Sansita", "Anton", sans-serif;
+    font-size: .875rem;
+    background-color: #EDE9DB;
+    color: #333;
+}
+
+.wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.sec-title-unit {
+    margin: 50px auto 35px;
+    background-image: url(../img/sec-title-base.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 4.5rem;
+    padding: 5px 0;
+}
+
+.sec-title-unit h2 {
+    font-family: "Sansita";
+    font-weight: 900;
+    font-style: italic;
+    margin-bottom: 15px;
+    font-size: 3rem;
+    line-height: 2rem;
+    letter-spacing: 3px;
+    color: #EDE9DB;
+    text-align: center;
+    -webkit-text-stroke: 3px #333;
+    paint-order: stroke;
+    text-shadow: 2px 2px 0 #333;
+}
+
+.sec-title-unit p {
+    color: #EDE9DB;
+    line-height: .875rem;
+    font-size: 1rem;
+    text-align: center;
+    -webkit-text-stroke: 2px #333;
+    paint-order: stroke;
+}
+
+/*------------------
+ヘッダー＆メイン
+ ------------------*/
+
+header {
+    position: relative;
+}
+
+#header-unit {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    margin: 0 auto;
+    padding: 15px 30px;
+    z-index: 999;
+    background-color: #F0C400;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+/* h1 */
+#header-unit h1 {
+    display: inline-block;
+    line-height: 1.1rem;
+
+    font-family: "Sansita";
+    font-weight: 900;
+    text-align: left;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: #EDE9DB;
+    letter-spacing: 5px;
+    -webkit-text-stroke: 3px #333;
+    paint-order: stroke;
+}
+
+/* ハンバーガーボタン */
+#hamburger-btn {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10000;
+    /* メニュー画面より手前に出す */
+}
+
+/* 三本線の共通スタイル */
+#hamburger-btn span {
+    display: block;
+    position: absolute;
+    left: 5px;
+    width: 30px;
+    height: 3px;
+    background-color: #B9281B;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* 三本線のそれぞれの初期位置 */
+#hamburger-btn span:nth-child(1) {
+    top: 10px;
+}
+
+#hamburger-btn span:nth-child(2) {
+    top: 19px;
+}
+
+#hamburger-btn span:nth-child(3) {
+    top: 28px;
+}
+
+/* ボタンがアクティブ（×）になったときの動き */
+#hamburger-btn.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+
+#hamburger-btn.active span:nth-child(2) {
+    opacity: 0;
+}
+
+#hamburger-btn.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+/* スマホ版メニュー隠し */
+#nav-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(237, 233, 219, 0.95);
+    transition: all 0.4s ease;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* メニューアクティブ時 */
+#nav-menu.active {
+    right: 0;
+}
+
+/* スマホ版メニュー内縦並び */
+.main-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    list-style: none;
+    padding: 0;
+    text-align: center;
+
+    font-family: "Sansita";
+    font-weight: 900;
+    font-style: italic;
+}
+
+.main-nav a {
+    font-size: 1.5rem;
+    color: #B9281B;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#main-visual {
+    width: 100%;
+    height: 500px;
+    margin-top: 60px;
+
+    background-image: url(../img/BG-sign.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: #EDE9DB;
+
+    position: relative;
+}
+
+@keyframes katakata {
+
+    0% {
+        transform: rotate(-4deg);
+    }
+
+    50% {
+        transform: rotate(4deg);
+    }
+
+    100% {
+        transform: rotate(-4deg);
+    }
+}
+
+#main-visual .katakata img {
+    width: 150px;
+    animation: katakata 0.64s steps(1) infinite alternate;
+
+    position: absolute;
+    top: 72%;
+    left: 56%;
+}
+
+#header-banner {
+    width: 100%;
+    background-color: #333;
+
+    font-family: "Sansita";
+    font-weight: 900;
+    font-style: italic;
+    text-align: center;
+}
+
+#header-banner p {
+    display: inline-block;
+    line-height: 50px;
+    font-size: 1.5rem;
+    color: #EDE9DB;
+}
+
+/*------------------
+WORKS
+------------------*/
+
+/* ↓1作品のユニット↓ */
+#works .works-unit {
+    position: relative;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+#works .works-unit:last-child {
+    margin-bottom: 60px;
+}
+
+/* .star-l img {
+    width: 40px;
+    height: auto;
+    margin: 0;
+    position: absolute;
+    top: -2%;
+    left: -2%;
+
+    animation: rotateAnime 3s linear infinite;
+} */
+
+@keyframes rotateAnime {
+    0% {
+        transform: rotate(0deg);
+        /* 開始時：0度 */
+    }
+
+    100% {
+        transform: rotate(360deg);
+        /* 終了時：360度（1回転） */
+    }
+}
+
+#works .works-unit .item-img {
+    width: 100%;
+    object-fit: contain;
+}
+
+#works .works-unit .item-name {
+    padding: 0;
+    margin: 0 0 10px 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+#works .works-unit .item-name::before {
+    content: url(../img/recoad.svg);
+    display: inline-block;
+    margin-right: .5rem;
+    width: 2rem;
+    height: 2rem;
+    vertical-align: middle;
+    animation: rotateAnime 3s linear infinite;
+}
+
+#works .tag-unit {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 5px;
+}
+
+#works .item-tag {
+    background-color: #F0C400;
+    border: solid 1px #333;
+    border-radius: 30px;
+    box-shadow: 1px 1px 0 #333;
+    margin-bottom: 15px;
+    padding: 0 10px;
+
+    color: #333;
+    line-height: 1.5rem;
+    font-size: .6rem;
+}
+
+#works .item-text {
+    padding: 10px 0;
+    border-top: dotted 1.5px #333;
+}
+
+/*------------------
+ABOUT
+------------------*/
+
+#about {
+    padding: 25px 25px 130px;
+    margin-bottom: 100px;
+    background-image: url(../img/check-bg-y.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.to-top-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.to-top-btn img {
+    width: 100px;
+    height: auto;
+    display: block;
+}
+
+.to-top-btn:hover {
+    transform: translateY(-5px);
+}
+
+#about #my-photo img {
+    width: 100%;
+    height: 250px;
+    margin-bottom: 30px;
+    object-fit: cover;
+    border: solid 2px #333;
+    border-radius: 0 50px 0 0;
+    box-shadow: 2px 5px 0 #333;
+}
+
+#about .about-text-unit {
+    padding: 30px 30px 50px;
+    font-family: "M PLUS Rounded 1c";
+    background-color: #EDE9DB;
+    border: solid 1.5px #333;
+    border-radius: 30px;
+    box-shadow: 2px 5px 0 #333;
+    text-align: left;
+    position: relative;
+}
+
+#about .img-roll {
+    width: 40px;
+    height: auto;
+    margin: 0;
+
+    position: absolute;
+    top: -5%;
+    right: 45%;
+
+    animation: rotateAnime 3s linear infinite;
+}
+
+#about h3 {
+    padding: 20px 0 10px;
+    font-size: 1.2rem;
+}
+
+#about-viewmore {
+    width: 250px;
+    margin: 30px auto;
+    line-height: 40px;
+    background-color: #333;
+    border: solid 2px #333;
+    border-radius: 50px;
+    text-align: center;
+
+    transition: .2s;
+}
+
+#about-viewmore a {
+    font-family: "Sansita";
+    font-weight: 900;
+    font-style: italic;
+    letter-spacing: 2px;
+    font-size: 1.2rem;
+    color: #EDE9DB;
+}
+
+#about-viewmore:hover {
+    background-color: #B9281B;
+    transform: scale(1.1);
+}
+
+/* フッター */
+
+footer {
+    width: 100%;
+    padding: 20px;
+    background-color: #333;
+    color: #EDE9DB;
+}
+
+footer p:first-child {
+    font-size: 1rem;
+}
+
+footer address {
+    display: inline-block;
+    font-style: normal;
+    margin-bottom: 20px;
+    border-bottom: dotted 2px #EDE9DB;
+}
+
+/* ----------------------
+ ABOUT単独ページ 
+-----------------------*/
+
+#about-page #about-profile {
+    padding-top: 15px;
+}
+
+#about-profile h1 {
+    margin: 90px auto 30px;
+    padding: 20px;
+    background-image: url(../img/sec-title-base.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #EDE9DB;
+    text-align: center;
+
+    font-family: "Sansita";
+    font-weight: 900;
+    font-style: italic;
+    font-size: 4rem;
+    line-height: 2rem;
+    letter-spacing: 3px;
+
+    -webkit-text-stroke: 3px #333;
+    paint-order: stroke;
+}
+
+#about-page h2 {
+    padding: 20px 0;
+}
+
+#about-page h2::before {
+    content: "SATO KURUMI";
+    display: block;
+    font-size: .875rem;
+    font-weight: normal;
+}
+
+#about-page h3 {
+    margin: 50px auto 30px;
+    padding: 5px;
+    color: #EDE9DB;
+    text-align: center;
+    -webkit-text-stroke: 4px #B9281B;
+    paint-order: stroke;
+    text-shadow: 2px 2px 0px #B9281B;
+
+    font-family: "Sansita";
+    font-weight: 900;
+    font-style: italic;
+    font-size: 3rem;
+    letter-spacing: 3px;
+}
+
+#about-page figure {
+    margin-bottom: 40px;
+}
+
+#about-page figure img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border: solid 1.5px #333;
+    border-radius: 0 50px 0 0;
+    box-shadow: 2px 5px 0 #333;
+}
+
+#about-page .skills-unit {
+    margin-bottom: 30px;
+}
+
+#about-page .skills-unit .skill-text {
+    margin-left: 2.2rem;
+}
+
+#about-page .app-flex {
+    display: flex;
+    justify-content: left;
+    gap: 2px;
+    margin: 0 0 10px 2.2rem;
+}
+
+#about-page h4 {
+    padding: 5px 0;
+    font-size: 1.2rem;
+    font-weight: normal;
+}
+
+#about-page h4::before {
+    content: url(../img/recoad.svg);
+    display: inline-block;
+    margin-right: .5rem;
+    width: 1.7rem;
+    height: 1.7rem;
+    vertical-align: middle;
+    animation: rotateAnime 3s linear infinite;
+}
+
+#about-page .app-tag {
+    background-color: #F0C400;
+    border: solid 1px #333;
+    border-radius: 30px;
+    box-shadow: 1px 1px 0 #333;
+    padding: 0 10px;
+
+    line-height: 1.5rem;
+    font-size: .65rem;
+}
+
+#about-strangths {
+    margin-bottom: 40px;
+    padding: 0 20px;
+}
+
+#strangths-container .strangths-unit {
+    margin: 0 auto 30px;
+
+}
+
+#strangths-container .strangths-unit p {
+    padding-left: 2.2rem;
+}
+
+#strangths-container .strangths-unit:last-child {
+    margin-bottom: 0;
+}
+
+/* BIOGRAPHY */
+
+#about-biography {
+    margin-bottom: 50px;
+}
+
+#bio-container {
+    padding: 20px;
+    background-color: #F0C400;
+    border: solid 1px #333;
+    box-shadow: 2px 5px 0 #333;
+    border-radius: 30px;
+    text-align: left;
+}
+
+#bio-container .bio-unit {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+#biography-box .bio-unit dt {
+    margin: 10px 0;
+}
+
+#biography-box .bio-unit dt::before {
+    content: url(../img/recoad.svg);
+    display: inline-block;
+    margin-right: .4rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    vertical-align: middle;
+    animation: rotateAnime 3s linear infinite;
+}
+
+#biography-box .bio-unit dd {
+    width: 60%;
+    margin: 10px 0;
+}
+
+/* ----------------------
+ WORKS単独ページ
+-----------------------*/
+
+#works-page {
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+#works-page h1 {
+    margin: 90px auto;
+    padding: 20px;
+    background-image: url(../img/sec-title-base.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #EDE9DB;
+    text-align: center;
+
+    font-family: "Sansita";
+    font-weight: 900;
+    font-style: italic;
+    font-size: 4rem;
+    line-height: 2rem;
+    letter-spacing: 3px;
+
+    -webkit-text-stroke: 3px #333;
+    paint-order: stroke;
+}
+
+#works-page h2 {
+    padding-bottom: 5px;
+    color: #333;
+    font-size: 1.5rem;
+}
+
+#works-page .title-unit {
+    /* display: flex;
+    justify-content: space-between;
+    align-items: center; */
+    border-bottom: dotted 1px #333;
+
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+}
+
+#works-page .work-tag-unit {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: .6rem;
+}
+
+#works-page .work-tag {
+    background-color: #F0C400;
+    border: solid 1px #333;
+    border-radius: 30px;
+    box-shadow: 1px 1px 0 #333;
+    padding: 0 10px;
+
+    color: #333;
+    line-height: 1.5rem;
+    font-size: .6rem;
+}
+
+#works-page figure {
+    margin-bottom: 30px;
+}
+
+#works-page h3 {
+    display: inline-block;
+    width: 100%;
+    font-size: 1rem;
+}
+
+#works-page h3::before {
+    content: url(../img/recoad.svg);
+    display: inline-block;
+    margin-right: .5rem;
+    width: 2rem;
+    height: 2rem;
+    vertical-align: middle;
+    animation: rotateAnime 3s linear infinite;
+}
+
+#works-page .works-text-unit {
+    margin-bottom: 20px;
+}
+
+#works-page .works-text-unit p {
+    padding-left: 2.5rem;
+}
+
+#works-page .works-text-unit:last-child {
+    margin-bottom: 40px;
+}
+
+.works-text-unit .write-unit {
+    display: block;
+}
+
+.works-text-unit .write-unit p {
+    margin-bottom: 20px;
+}
+
+.works-text-unit .write-unit p a {
+    color: #B9281B;
+    text-decoration: underline;
+}
+
+.works-color {
+    display: flex;
+    justify-content: left;
+    align-items: start;
+    gap: 10px;
+    padding: 0 7px;
+}
+
+.works-color .color-1 {
+    width: 20px;
+    height: 20px;
+}
+
+.works-color .color-2 {
+    width: 20px;
+    height: 20px;
+}
+
+.works-color .color-3 {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 50px;
+}
+
+.works-text-unit .works-text-sche {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 10px;
+    padding-left: 2.5rem;
+}
+
+.works-text-unit .works-text-sche dt {
+    width: 140px;
+}
+
+#works-page h4 {
+    margin: 100px auto 40px;
+    color: #EDE9DB;
+    text-align: center;
+    -webkit-text-stroke: 4px #B9281B;
+    paint-order: stroke;
+    text-shadow: 2px 2px 0px #B9281B;
+
+    font-family: "Sansita";
+    font-weight: 900;
+    font-style: italic;
+    font-size: 3rem;
+    letter-spacing: 3px;
+}
+
+/* #works-page .illust-gallery {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 50px;
+}
+
+#works-page .illust-gallery figure {
+    display: inline-block;
+    width: 47%;
+    margin-bottom: 0;
+} */
+
+#works-page #slider-box {
+    width: 100%;
+    ;
+}
+
+#works-page .slider img {
+    height: 60vw;
+    object-fit: cover;
+}
+
+/* ハンバーガーくん隠しコマンド */
+
+/* #hamburger-kun {
+    background-image: url(../img/check-bg-y.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+} */
+
+#hamburger-kun-card {
+    width: 330px;
+    margin: 195px auto 135px;
+    background-color: #F0C400;
+    border: solid 2px #333;
+    border-radius: 30px;
+    box-shadow: 3px 3px 0 #333;
+    font-size: .8rem;
+    font-weight: bold;
+}
+
+#hamburger-kun-card:hover {
+    transform: rotate(3deg);
+}
+
+#hamburger-kun-card h1 {
+    background-color: #B9281B;
+    border-radius: 29px 29px 0 0;
+    padding: 10px 15px;
+    font-size: 1.5rem;
+    line-height: 1.7rem;
+    color: #EDE9DB;
+    text-align: center;
+}
+
+#hamburger-kun-card h1::before {
+    content: "NAME";
+    display: inline;
+    font-size: 1rem;
+    margin-right: 10px;
+}
+
+#hamburger-kun-card #hamburger-kun-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    padding: 10px;
+}
+
+#hamburger-kun-card #hamburger-kun-box figure {
+    width: 105px;
+    height: 138px;
+    background-image: url(../img/hamburger-kun.webp);
+    background-color: #EDE9DB;
+    background-size: 170%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: solid 2px #333;
+    border-radius: 0 0 20px 0;
+}
+
+#hamburger-kun-card #hamburger-kun-box figure:hover {
+    background-image: url(../img/hamburger-kun-top.webp);
+    background-size: 180%;
+}
+
+#hamburger-kun-card #hamburger-kun-box #bd-unit,
+#hamburger-kun-card #hamburger-kun-box #born-unit,
+#hamburger-kun-card #hamburger-kun-box #guzai-unit {
+    display: flex;
+    justify-content: left;
+    align-items: start;
+    gap: 8px;
+}
+
+#hamburger-kun-card #hamburger-kun-box #text-unit dt {
+    display: inline-block;
+    width: 50px;
+    background-color: #333;
+    color: #EDE9DB;
+    padding: 0 5px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+#hamburger-kun-card #hamburger-kun-box dd {
+    display: inline-block;
+    width: 120px;
+}
+
+#hamburger-kun-card #hamburger-kun-box #guzai-list-unit {
+    width: 120px;
+    line-height: .9rem;
+}
+
+
+/*------------------
+レスポンシブ
+------------------*/
+
+@media (min-width:800px) {
+
+    .wrapper {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 25px;
+    }
+
+    /* ヘッダー＆メイン */
+
+    #header-unit {
+        height: 80px;
+        margin: 0 auto;
+        padding: 25px 30px;
+    }
+
+    #header-unit h1 {
+        font-size: 2rem;
+        line-height: 1.6rem;
+    }
+
+    /* ハンバーガーメニューPC時 */
+
+    #hamburger-btn {
+        display: none !important;
+    }
+
+    /* メニュー全画面固定解除・ロゴの右側に配置 */
+    #nav-menu {
+        position: static;
+        width: auto;
+        height: auto;
+        background-color: transparent;
+        display: block;
+    }
+
+    /* 中身のリンクを「横並び」に変更 */
+    .main-nav {
+        flex-direction: row;
+        gap: 25px;
+    }
+
+    .main-nav a {
+        padding: 0 10px;
+        font-size: 1.5rem;
+        transition: .2s;
+    }
+
+    .main-nav a:hover {
+        /* opacity: .5; */
+        background-color: #333;
+        color: #F0C400;
+    }
+
+    .sec-title-unit {
+        height: fit-content;
+        padding: 0 0 5px;
+    }
+
+    .sec-title-unit h2 {
+        font-size: 5rem;
+        line-height: 4.5rem;
+        -webkit-text-stroke: 4px #333;
+        paint-order: stroke;
+        text-shadow: 4px 4px 0 #333;
+    }
+
+    .sec-title-unit p {
+        padding-bottom: 5px;
+        font-size: 2rem;
+        -webkit-text-stroke: 4px #333;
+        paint-order: stroke;
+    }
+
+    #main-visual {
+        height: 600px;
+        background-image: url(../img/BG-sign-pc.svg);
+        background-size: cover;
+        background-position: center;
+        background-color: #EDE9DB;
+    }
+
+    #main-visual .katakata img {
+        width: 170px;
+        top: 73%;
+        left: 67%;
+    }
+
+    .header-banner {
+        height: 50px;
+        font-size: 2rem;
+    }
+
+    /* WORKS */
+
+    #works {
+        margin-bottom: 50px;
+    }
+
+    #works #works-box {
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    #works #works-box .works-unit {
+        width: 45%;
+        margin-bottom: 50px;
+    }
+
+    #works #works-box .works-unit:last-child {
+        margin-bottom: 0;
+    }
+
+    #works .works-unit .item-name {
+        font-size: 1.2rem;
+        padding: 15px 0 0;
+        font-weight: bold;
+    }
+
+    #works .item-tag {
+        margin: 10px 0;
+        font-size: .875rem;
+    }
+
+    #works .works-unit .item-text {
+        padding: 30px 0 10px;
+        font-size: 1rem;
+    }
+
+    /* ABOUT */
+
+    #about {
+        width: 100%;
+        margin: 0 auto 100px;
+        padding: 25px 25px 130px 25px;
+        background-image: url(../img/check-bg-y.webp);
+        background-size: cover;
+    }
+
+    .to-top-btn {
+        bottom: 20px;
+        right: 100px;
+    }
+
+    .to-top-btn img {
+        width: 120px;
+    }
+
+    .to-top-btn:hover {
+        transform: translateY(-5px);
+    }
+
+    #about .sec-title-unit {
+        margin-bottom: 60px;
+    }
+
+    #about .about-unit {
+        max-width: 1000px;
+        margin: 0 auto 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 70px;
+    }
+
+    #about #my-photo img {
+        width: 500px;
+        height: 380px;
+        margin-bottom: 0;
+        object-fit: cover;
+        object-position: center;
+        border: solid 1.5px #333;
+    }
+
+    #about .about-text-unit {
+        padding-bottom: 40px;
+    }
+
+    #about .about-text-unit h3 {
+        padding: 20px 0 10px;
+        font-size: 1.5rem;
+    }
+
+    #about-viewmore {
+        margin-bottom: 0;
+    }
+
+    /* ABOUT単独 */
+
+    #about-page {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    #about-page h1 {
+        padding: 23px;
+        text-shadow: 3px 3px 0 #333;
+    }
+
+    #about-profile h3 {
+        font-size: 4rem;
+        margin: 70px auto 25px;
+        -webkit-text-stroke: 5px #B9281B;
+        paint-order: stroke;
+        text-shadow: 4px 4px 0px #B9281B;
+    }
+
+    #about-page h4 {
+        padding: 5px 0;
+    }
+
+    #about-profile {
+        margin-top: 0;
+        padding-top: 50px;
+    }
+
+    #about-profile .about-prof {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #about-profile .about-prof figure {
+        width: 40%;
+        object-fit: cover;
+    }
+
+    #about-profile .about-text {
+        width: 53%;
+        line-height: 1.7rem;
+        font-size: 1rem;
+    }
+
+    #about-skills .skills-container {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    #about-skills .skills-unit {
+        width: 47%;
+    }
+
+    #about-skills .skills-unit h4 {
+        font-size: 1.2rem;
+    }
+
+    #about-skills .skills-unit .app-flex {
+        gap: 5px;
+        margin-bottom: 20px;
+    }
+
+    #about-skills .skills-unit .skill-text {
+        font-size: 1rem;
+    }
+
+    #about-skills .app-tag {
+        font-size: .875rem;
+    }
+
+    #about-strangths {
+        margin-bottom: 0;
+    }
+
+    #about-strangths #strangths-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #strangths-container .strangths-unit {
+        width: 31%;
+        margin: 0;
+        padding-right: 20px;
+        border-right: 3px dotted #B9281B;
+    }
+
+    #strangths-container .strangths-unit:last-child {
+        margin-bottom: 30px;
+        border-right: none;
+    }
+
+    #strangths-container .strangths-unit h4 {
+        margin-bottom: 15px;
+    }
+
+    #strangths-container .strangths-unit p {
+        text-align: left;
+        font-size: 1rem;
+        padding: 0 5px;
+    }
+
+    #about-biography {
+        padding: 0 0 50px;
+    }
+
+    #bio-container {
+        margin: 30px auto 0;
+        padding: 50px;
+        font-size: 1rem;
+    }
+
+    #biography-box {
+        padding-bottom: 0;
+    }
+
+    #biography-box .bio-unit {
+        margin: 0 auto 30px;
+    }
+
+    #biography-box .bio-unit dt {
+        font-weight: bold;
+        margin: 0 30px 0 0;
+    }
+
+    #biography-box .bio-unit dd {
+        width: 680px;
+        margin: 0;
+    }
+
+    #biography-box .bio-unit:last-child {
+        margin-bottom: 0;
+    }
+
+    #about-page figure #contact {
+        border-radius: 500px 500px 0 0;
+    }
+
+    /* WORKS単独 */
+
+    #works-page {
+        max-width: 900px;
+        width: 100%;
+        margin: 0 auto 80px;
+        padding: 0 20px;
+    }
+
+    #works-page h1 {
+        margin: 140px auto 90px;
+        padding: 20px;
+        background-image: url(../img/sec-title-base.svg);
+        background-repeat: no-repeat;
+        background-position: center;
+        color: #EDE9DB;
+        text-align: center;
+
+        font-family: "Sansita";
+        font-weight: 900;
+        font-style: italic;
+        font-size: 4rem;
+        line-height: 2rem;
+        letter-spacing: 3px;
+
+        -webkit-text-stroke: 3px #333;
+        paint-order: stroke;
+    }
+
+    #works-page h2 {
+        font-size: 1.7rem;
+    }
+
+    #works-page .title-unit {
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        gap: 30px;
+        margin-bottom: 0;
+    }
+
+    #works-page .work-tag-unit {
+        gap: .8rem;
+    }
+
+    #works-page .work-tag {
+        padding: 0 15px;
+
+        color: #333;
+        line-height: 1.5rem;
+        font-size: .875rem;
+    }
+
+    #works-page figure {
+        margin-bottom: 30px;
+    }
+
+    #works-page .works-text-unit {
+        display: flex;
+        justify-content: left;
+        gap: 30px;
+        margin-bottom: 30px;
+        text-align: left;
+    }
+
+    .works-text-unit:last-child {
+        margin-bottom: 80px;
+    }
+
+    .works-text-unit dl {
+        width: 100%;
+    }
+
+    .works-text-unit .works-text-sche {
+        padding-left: 0;
+        font-size: 1rem;
+    }
+
+    #works-page .works-text-unit h3 {
+        width: 300px;
+        font-weight: normal;
+        font-size: 1.2rem;
+    }
+
+    #works-page h3::before {
+        width: 2rem;
+        height: 2rem;
+        margin-right: 1rem;
+    }
+
+    #works-page .works-text-unit p {
+        width: 100%;
+        padding-left: 0;
+        font-size: 1rem;
+    }
+
+    .works-color {
+        display: flex;
+        justify-content: left;
+        align-items: start;
+        gap: 10px;
+        padding: 0 7px;
+    }
+
+    #works-page .captcha {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        gap: 25px;
+
+        margin-bottom: 50px;
+    }
+
+    #works-page .captcha .captcha-pc {
+        width: 70%;
+        margin: 0 auto;
+    }
+
+    #works-page .captcha .captcha-sp {
+        width: 25%;
+        margin: 0 auto;
+    }
+
+    #works-page #slider-box {
+        max-width: 1200px;
+    }
+
+    #works-page .slider img {
+        height: 50vw;
+        object-fit: cover;
+        max-height: 450px;
+        min-height: 350px;
+    }
+
+    #hamburger-kun-card {
+        width: 330px;
+        margin: 175px auto 115px;
+    }
+}
